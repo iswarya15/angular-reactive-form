@@ -1,0 +1,44 @@
+<h1>Hello {{ name }}!</h1>
+<form [formGroup]="myForm">
+  Value: {{ myForm.value | json }}
+  <br />
+
+  <hr />
+  <br />
+  <mat-form-field>
+    <input matInput placeholder="email" formControlName="email" />
+
+    <mat-error *ngIf="email.invalid && email.touched">
+      Your email does not look good
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="password" formControlName="password" />
+    <mat-hint align="end"
+      >Must have min length of 8, one uppercase and lowecase letter, one
+      number</mat-hint
+    >
+    <mat-error *ngIf="password.invalid && password.touched">
+      Your password sucks
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="age" [value]="0" formControlName="age" />
+    <mat-error *ngIf="age.errors?.min && age.touched">
+      {{ age.errors.min.actual }} is too young to use this app Kiddo
+    </mat-error>
+    <mat-error *ngIf="age.errors?.max && age.touched">
+      {{ age.errors.max.actual }} is too old to use this app Gramps
+    </mat-error>
+  </mat-form-field>
+
+  <mat-checkbox color="primary" formControlName="agree"
+    >Are you sure?</mat-checkbox
+  >
+
+  <button mat-raised-button [disabled]="myForm.invalid" color="primary">
+    Let's do this
+  </button>
+</form>
